@@ -1,0 +1,64 @@
+import joblib
+import numpy as np
+from fastapi import FastAPI
+from pydantic import BaseModel
+import pandas as pd
+
+rfc = joblib.load("./model/titanic_classifier.joblib")
+
+def predict_titanic_survived(features_passenger: pd.DataFrame, confidence=0.5):
+    """Recibe un vector de características de un viaje en taxi en NYC y predice 
+       si el pasajero dejará o no una propina alta.
+
+    Argumentos:
+        features_passenger (pd.DataFrame): Características del pasajero, dataframe de 7 columnas.
+        confidence (float, opcional): Nivel de confianza. Por defecto es 0.5.
+    """
+
+    pred_value = rfc.predict_proba(features_passenger)[0][1]
+    if pred_value >= confidence:
+      return "survived"
+    else:
+      return "no survived"
+
+# Asignamos una instancia de la clase FastAPI a la variable "app".
+# Interacturaremos con la API usando este elemento.
+app = FastAPI(title='Implementando un modelo de Machine Learning usando FastAPI')
+
+# Creamos una clase para el vector de features de entrada
+class Item(BaseModel):
+    pclass: int
+    sex: str
+    age: float
+    sibsp: int
+    parch: int
+    fare: float
+    embarked: str
+
+# Usando @app.get("/") definimos un método GET para el endpoint / (que sería como el "home").
+@app.get("/")
+def home():
+    return "¡Felicitaciones! Tu API está funcionando según lo esperado. Anda ahora a http://localhost:8000/docs."
+
+
+# Este endpoint maneja la lógica necesaria para clasificar.
+# Requiere como entrada el vector de características del viaje y el umbral de confianza para la clasificación.
+@app.post("/predict") 
+def prediction(item: Item, confidence: float):
+
+    
+    # 1. Correr el modelo de clasificación
+    features_df = pd.DataFrame({"pclass": [item.pclass], 
+                               "sex": [item.sex], 
+                               "age": [item.age], 
+                               "sibsp": [item.sibsp], 
+                               "parch": [item.parch], 
+                               "fare": [item.fare], 
+                               "embarked": [item.embarked]})
+
+    pred = predict_titanic_survived(features_df, confidence)
+    
+    # 2. Transmitir la respuesta de vuelta al cliente
+
+    # Retornar el resultado de la predicción
+    return {'predicted_class': pred}
