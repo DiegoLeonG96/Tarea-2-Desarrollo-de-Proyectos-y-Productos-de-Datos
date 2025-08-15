@@ -10,13 +10,13 @@ pip install -r requirements.txt
 
 ## 2. Servicio de predicción
 
-El modelo disponibilizado mediante un servicio de API corresponde a una clasificador Naive Bayes de supervivencia de pasajeros del Titanic. El modelo fue entrenado en tareas del curso "Machine Learning" sobre el dataset público de Titanic disponible en: https://www.kaggle.com/datasets/yasserh/titanic-dataset
+El modelo disponibilizado mediante un servicio de API corresponde a un clasificador Naive Bayes de supervivencia de pasajeros del Titanic. El modelo fue entrenado en tareas del curso "Machine Learning" sobre el dataset público de Titanic disponible en: https://www.kaggle.com/datasets/yasserh/titanic-dataset
 
 Las características del modelo son las siguientes:
 
 - "pclass": clase de embarque. Son 3 clases (1 = 1st, 2 = 2nd o 3 = 3rd).
 - "sex": género del pasajero. Acepta solamente "male" o "female".
-- "age": edad del pasajero. Es considerada un continuo, por lo cual se puede ingresa 29.5 por ejemplo.
+- "age": edad del pasajero. Es considerada un continuo, por lo cual se puede ingresar 29.5 por ejemplo.
 - "sibsp": hermanos o cónyuges a bordo. Se esperan enteros positivos o cero.
 - "parch": padres o hijos del pasajero a bordo. Se esperan enteros positivos o cero.
 - "fare": tarifa pagada por el pasajero. Es una variable continua positiva.
