@@ -9,7 +9,7 @@ rfc = joblib.load("./model/titanic_classifier.joblib")
 
 def predict_titanic_survived(features_passenger: pd.DataFrame, confidence=0.5):
     """Recibe un vector de características de un pasajero a bordo y predice
-    si la probabiliad de supervivencia.
+       la probabiliad de supervivencia.
 
     Argumentos:
         features_passenger (pd.DataFrame): Características del pasajero, dataframe de 7 columnas.
