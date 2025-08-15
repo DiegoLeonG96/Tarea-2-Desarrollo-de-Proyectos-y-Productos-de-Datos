@@ -4,8 +4,8 @@ Se recomienda usar ambiente conda o venv previamente:
 
 conda create tarea2_venv
 conda activate tarea2_venv
-Luego instalar dependencias con:
 
+Luego instalar dependencias con:
 pip install -r requirements.txt
 
 ## 2. Servicio de predicción
